@@ -73,6 +73,49 @@
             .hero h1 { font-size: 36px; }
             .sezione { padding: 50px 20px; }
         }
+	/* --- EFFETTO LIGHTBOX (FOTO INGRANDITE) --- */
+        .foto { 
+            cursor: pointer; /* Fa comparire la manina quando passi sulla foto */
+        }
+        
+        .lightbox {
+            display: none; /* Nascosto di default */
+            position: fixed;
+            z-index: 2000; /* Lo fa stare sopra a tutto il resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Sfondo nero semitrasparente */
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease; /* Piccolo effetto di entrata */
+        }
+        
+        .chiudi-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .chiudi-lightbox:hover { color: var(--verde-chiaro); }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -162,6 +205,35 @@
             <p>&copy; 2026 PadreSergio House. Tutti i diritti riservati.</p>
         </div>
     </footer>
+	<div id="lightbox" class="lightbox">
+        <span class="chiudi-lightbox" onclick="chiudiLightbox()">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" src="">
+    </div>
+	<script>
+        // Trova tutte le foto e il lightbox
+        const fotoGalleria = document.querySelectorAll('.foto');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
 
+        // Quando clicchi su una foto, aprila nel lightbox
+        fotoGalleria.forEach(foto => {
+            foto.addEventListener('click', function() {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = this.src; // Prende l'immagine esatta che hai cliccato
+            });
+        });
+
+        // Funzione per chiudere con la X
+        function chiudiLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        // Extra: Chiudi anche se l l'ospite clicca fuori dalla foto (sullo sfondo nero)
+        lightbox.addEventListener('click', function(event) {
+            if (event.target !== lightboxImg) {
+                chiudiLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
