@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PadreSergio House Apulia | B&B di Charme</title>
+    <style>
+        /* COLORI E STILI BASE */
+        :root {
+            --verde-primario: #5e7153;
+            --verde-chiaro: #8c9c83;
+            --crema-sfondo: #faf9f6;
+            --testo-scuro: #333333;
+            --testo-chiaro: #666666;
+        }
+
+        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--crema-sfondo); color: var(--testo-scuro); overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Georgia', serif; font-weight: normal; margin: 0; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* BARRA DI NAVIGAZIONE */
+        header { background-color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 24px; font-family: 'Georgia', serif; color: var(--verde-primario); font-weight: bold; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--verde-primario); }
+        .btn-nav { background-color: var(--verde-primario); color: white !important; padding: 8px 15px; border-radius: 4px; font-weight: bold; }
+
+        /* SEZIONE COPERTINA (HERO) */
+        .hero { 
+            height: 80vh; 
+            /* Sostituisci questo link con l'URL di una tua foto di copertina */
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('foto_copertina.jpg'); 
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 0 20px;
+        }
+        .hero h1 { font-size: 50px; margin-bottom: 15px; letter-spacing: 2px; }
+        .hero p { font-size: 20px; margin-bottom: 30px; font-weight: 300; max-width: 600px; }
+        .btn-prenota { background-color: white; color: var(--verde-primario); padding: 15px 30px; font-size: 16px; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; }
+        .btn-prenota:hover { background-color: var(--verde-primario); color: white; }
+
+        /* SEZIONI GENERICHE */
+        .sezione { padding: 80px 5%; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .sezione-titolo { font-size: 36px; color: var(--verde-primario); margin-bottom: 20px; }
+        .sezione-desc { font-size: 16px; color: var(--testo-chiaro); line-height: 1.8; max-width: 800px; margin: 0 auto 50px auto; }
+
+        /* SERVIZI */
+        .griglia-servizi { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .servizio-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .servizio-icona { font-size: 40px; margin-bottom: 15px; }
+
+        /* GALLERIA FOTOGRAFICA */
+        .griglia-foto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .foto { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; transition: transform 0.3s; }
+        .foto:hover { transform: scale(1.03); }
+
+        /* MAPPA E CONTATTI */
+        .mappa-container { width: 100%; height: 400px; background-color: #eee; margin-top: 40px; border-radius: 8px; overflow: hidden; }
+        
+        /* FOOTER */
+        footer { background-color: var(--verde-primario); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
+        footer p { margin: 10px 0; opacity: 0.8; font-size: 14px; }
+
+        /* RESPONSIVE PER CELLULARI */
+        @media (max-width: 768px) {
+            .nav-links { display: none; /* In una versione avanzata potremmo aggiungere un menu ad hamburger */ }
+            .hero h1 { font-size: 36px; }
+            .sezione { padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">PadreSergio House</div>
+        <nav class="nav-links">
+            <a href="#struttura">La Struttura</a>
+            <a href="#galleria">Galleria</a>
+            <a href="#dovesiamo">Dove Siamo</a>
+            <a href="https://[TUO-NOME].github.io/[CARTELLA-CHECKIN]/" target="_blank" class="btn-nav">Check-in Online</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Benvenuti in Apulia</h1>
+        <p>Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</p>
+        <a href="https://www.airbnb.it/rooms/TUO-ANNUNCIO" target="_blank" class="btn-prenota">Prenota Ora</a>
+    </section>
+
+    <section id="struttura" class="sezione">
+        <h2 class="sezione-titolo">Il tuo rifugio perfetto</h2>
+        <p class="sezione-desc">PadreSergio House è stata pensata per offrire il massimo del comfort unito all'autentica ospitalità pugliese. Spazi luminosi, dettagli curati e un'atmosfera calda ti faranno sentire subito a casa.</p>
+        
+        <div class="griglia-servizi">
+            <div class="servizio-card">
+                <div class="servizio-icona">📶</div>
+                <h3>Wi-Fi Veloce</h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">Connessione gratuita in tutta la struttura per navigare o lavorare.</p>
+            </div>
+            <div class="servizio-card">
+                <div class="servizio-icona">❄️</div>
+                <h3>Aria Condizionata</h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">Ambienti sempre freschi e climatizzati per il massimo riposo.</p>
+            </div>
+            <div class="servizio-card">
+                <div class="servizio-icona">🅿️</div>
+                <h3>Parcheggio</h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">Posto auto comodo e sicuro a pochi passi dall'ingresso.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galleria" class="sezione" style="background-color: white;">
+        <h2 class="sezione-titolo">Galleria</h2>
+        <p class="sezione-desc">Scopri in anteprima gli spazi che ti accoglieranno.</p>
+        
+        <div class="griglia-foto">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&q=80" alt="Camera" class="foto">
+            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500&q=80" alt="Cucina" class="foto">
+            <img src="https://images.unsplash.com/photo-1502672260266-1c1e52509b55?w=500&q=80" alt="Soggiorno" class="foto">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&q=80" alt="Esterno" class="foto">
+        </div>
+    </section>
+
+    <section id="dovesiamo" class="sezione">
+        <h2 class="sezione-titolo">Dove Siamo</h2>
+        <p class="sezione-desc">Ci troviamo in una posizione strategica per esplorare le meraviglie del territorio.</p>
+        
+        <div class="mappa-container">
+            <iframe src="https://www.google.com/maps/place/Padresergio+house+Apulia/@40.9191685,17.2205409,171m/data=!3m2!1e3!5s0x1347b59318d5b519:0x5ad3e849e6861c97!4m6!3m5!1s0x1347b56b7fa24647:0x4149e0b036b7bcc8!8m2!3d40.9191613!4d17.2210234!16s%2Fg%2F11kpl7zbmv?" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="margin-bottom: 10px;">PadreSergio House Apulia</h2>
+        <p>Contrada Padresergio, Monopoli (BA) - Italia</p>
+        <p>Email: padresergiohouse@gmail.com | Tel: +39 3384699286</p>
+        <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
+            <p>&copy; 2026 PadreSergio House. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
