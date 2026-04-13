@@ -102,7 +102,6 @@
             user-select: none;
         }
         
-        /* Pulsanti Chiudi e Frecce */
         .chiudi-lightbox { position: absolute; top: 15px; right: 30px; color: #f1f1f1; font-size: 45px; font-weight: bold; cursor: pointer; transition: 0.2s; z-index: 2001; }
         .chiudi-lightbox:hover { color: var(--verde-chiaro); }
         
@@ -133,9 +132,8 @@
 
         /* --- RESPONSIVE PER CELLULARI --- */
         @media (max-width: 768px) {
-            .menu-icon { display: block; } /* Mostra l'hamburger */
+            .menu-icon { display: block; } 
             
-            /* Menu a tendina per mobile */
             .nav-links { 
                 display: none; 
                 flex-direction: column; 
@@ -156,14 +154,25 @@
             .hero p { font-size: 16px; }
             .sezione { padding: 50px 20px; }
             
-            /* Frecce più piccole su mobile */
             .freccia { font-size: 25px; padding: 10px; }
             .freccia.sinistra { left: 10px; }
             .freccia.destra { right: 10px; }
             .chiudi-lightbox { top: 10px; right: 20px; font-size: 35px; }
             
             .griglia-servizi, .griglia-foto { grid-template-columns: 1fr; }
+            
+            /* Adatta le bandierine su cellulare */
+            .lang-switcher { margin: 10px auto; justify-content: center; padding-bottom: 10px; width: 100%; border-bottom: 1px solid #f5f5f5; }
         }
+
+        /* --- LOGICA CAMBIO LINGUA (CSS AGGIUNTO) --- */
+        [lang="en"] { display: none !important; }
+        body.lang-en [lang="it"] { display: none !important; }
+        body.lang-en [lang="en"] { display: inherit !important; }
+
+        .lang-switcher { display: flex; gap: 15px; align-items: center; margin-left: 10px; }
+        .lang-btn { cursor: pointer; font-size: 20px; filter: grayscale(100%); transition: 0.3s; opacity: 0.5; user-select: none; }
+        .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -172,70 +181,121 @@
         <div class="logo">PadreSergio House</div>
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <nav class="nav-links" id="menuNavigazione">
-            <a href="#struttura" onclick="toggleMenu()">La Struttura</a>
-            <a href="#galleria" onclick="toggleMenu()">Galleria</a>
-            <a href="#dovesiamo" onclick="toggleMenu()">Dove Siamo</a>
-            <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" target="_blank" class="btn-nav">Richiedi disponibilità</a>
+            <a href="#struttura" onclick="toggleMenu()"><span lang="it">La Struttura</span><span lang="en">The Property</span></a>
+            <a href="#galleria" onclick="toggleMenu()"><span lang="it">Galleria</span><span lang="en">Gallery</span></a>
+            <a href="#dovesiamo" onclick="toggleMenu()"><span lang="it">Dove Siamo</span><span lang="en">Location</span></a>
+            <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" target="_blank" class="btn-nav">
+                <span lang="it">Richiedi disponibilità</span><span lang="en">Check Availability</span>
+            </a>
+            
+            <div class="lang-switcher">
+                <span class="lang-btn active" id="btn-it" onclick="changeLang('it')">🇮🇹</span>
+                <span class="lang-btn" id="btn-en" onclick="changeLang('en')">🇬🇧</span>
+            </div>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Benvenuti in Puglia</h1>
-        <p>Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</p>
-        <a href="https://www.airbnb.it/rooms/660983193087442876?" target="_blank" class="btn-prenota">Prenota Ora</a>
+        <h1>
+            <span lang="it">Benvenuti in Puglia</span>
+            <span lang="en">Welcome to Apulia</span>
+        </h1>
+        <p>
+            <span lang="it">Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</span>
+            <span lang="en">An oasis of relaxation and charm for your unforgettable holidays, just steps away from the beauties of our land.</span>
+        </p>
+        <a href="https://www.airbnb.it/rooms/660983193087442876?" target="_blank" class="btn-prenota">
+            <span lang="it">Prenota Ora</span>
+            <span lang="en">Book Now</span>
+        </a>
     </section>
 
     <section id="struttura" class="sezione">
-        <h2 class="sezione-titolo">Il tuo rifugio perfetto</h2>
-        <p class="sezione-desc">PadreSergio House è stata pensata per offrire il massimo del comfort unito all'autentica ospitalità pugliese. Spazi luminosi, dettagli curati e un'atmosfera calda ti faranno sentire subito a casa.</p>
+        <h2 class="sezione-titolo">
+            <span lang="it">Il tuo rifugio perfetto</span>
+            <span lang="en">Your perfect retreat</span>
+        </h2>
+        <p class="sezione-desc">
+            <span lang="it">PadreSergio House è stata pensata per offrire il massimo del comfort unito all'autentica ospitalità pugliese. Spazi luminosi, dettagli curati e un'atmosfera calda ti faranno sentire subito a casa.</span>
+            <span lang="en">PadreSergio House was designed to offer maximum comfort combined with authentic Apulian hospitality. Bright spaces, refined details and a warm atmosphere will make you feel right at home.</span>
+        </p>
         
         <div class="griglia-servizi">
             <div class="servizio-card">
                 <div class="servizio-icona">📶</div>
-                <h3>Wi-Fi Veloce</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Connessione gratuita in tutta la struttura per navigare o lavorare.</p>
+                <h3><span lang="it">Wi-Fi Veloce</span><span lang="en">Fast Wi-Fi</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Connessione gratuita in tutta la struttura per navigare o lavorare.</span>
+                    <span lang="en">Free connection throughout the property to browse or work.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">❄️</div>
-                <h3>Aria Condizionata</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Ambienti sempre freschi e climatizzati per il massimo riposo.</p>
+                <h3><span lang="it">Aria Condizionata</span><span lang="en">Air Conditioning</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Ambienti sempre freschi e climatizzati per il massimo riposo.</span>
+                    <span lang="en">Always cool and air-conditioned environments for maximum rest.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">🅿️</div>
-                <h3>Parcheggio</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Posto auto comodo e sicuro a pochi passi dall'ingresso.</p>
+                <h3><span lang="it">Parcheggio</span><span lang="en">Parking</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Posto auto comodo e sicuro a pochi passi dall'ingresso.</span>
+                    <span lang="en">Convenient and safe parking space just steps from the entrance.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">🥐</div>
-                <h3>Colazione</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Ottima colazione a snack inclusa tra cui merendine, succhi di frutta, the, tisane e caffè.</p>
+                <h3><span lang="it">Colazione</span><span lang="en">Breakfast</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Ottima colazione a snack inclusa tra cui merendine, succhi di frutta, the, tisane e caffè.</span>
+                    <span lang="en">Excellent snack breakfast included: snacks, fruit juices, tea, herbal teas and coffee.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">🏡</div>
-                <h3>Giardino</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Comodo spazio esterno per vivere momenti di convivialità e relax.</p>
+                <h3><span lang="it">Giardino</span><span lang="en">Garden</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Comodo spazio esterno per vivere momenti di convivialità e relax.</span>
+                    <span lang="en">Comfortable outdoor space for moments of conviviality and relaxation.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">🫧</div>
-                <h3>Lavanderia</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Comoda lavatrice inclusa, servizio di asciugatrice a pagamento.</p>
+                <h3><span lang="it">Lavanderia</span><span lang="en">Laundry</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Comoda lavatrice inclusa, servizio di asciugatrice a pagamento.</span>
+                    <span lang="en">Convenient washing machine included, dryer service available for a fee.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">🛏️</div>
-                <h3>Biancheria</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Lenzuola e set asciugamani inclusi.</p>
+                <h3><span lang="it">Biancheria</span><span lang="en">Bed Linen</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Lenzuola e set asciugamani inclusi.</span>
+                    <span lang="en">Bed sheets and towel sets included.</span>
+                </p>
             </div>
             <div class="servizio-card">
                 <div class="servizio-icona">☀️</div>
-                <h3>Esperienze</h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">Esperienze uniche organizzate direttamente dall'host. Per informazioni e disponibilità chiedere in struttura.</p>
+                <h3><span lang="it">Esperienze</span><span lang="en">Experiences</span></h3>
+                <p style="color:var(--testo-chiaro); font-size:14px;">
+                    <span lang="it">Esperienze uniche organizzate direttamente dall'host. Per informazioni e disponibilità chiedere in struttura.</span>
+                    <span lang="en">Unique experiences organized directly by the host. Ask at the property for info and availability.</span>
+                </p>
             </div>
         </div>
     </section>
 
     <section id="galleria" class="sezione" style="background-color: white;">
-        <h2 class="sezione-titolo">Galleria</h2>
-        <p class="sezione-desc">Scopri in anteprima gli spazi che ti accoglieranno.</p>
+        <h2 class="sezione-titolo">
+            <span lang="it">Galleria</span><span lang="en">Gallery</span>
+        </h2>
+        <p class="sezione-desc">
+            <span lang="it">Scopri in anteprima gli spazi che ti accoglieranno.</span>
+            <span lang="en">Take a preview of the spaces that will welcome you.</span>
+        </p>
         
         <div class="griglia-foto">
             <img src="foto_giardino.jpg" alt="Giardino" class="foto">
@@ -257,8 +317,13 @@
     </section>
 
     <section id="dovesiamo" class="sezione">
-        <h2 class="sezione-titolo">Dove Siamo</h2>
-        <p class="sezione-desc">Ci troviamo in una posizione strategica per esplorare le meraviglie del territorio.</p>
+        <h2 class="sezione-titolo">
+            <span lang="it">Dove Siamo</span><span lang="en">Location</span>
+        </h2>
+        <p class="sezione-desc">
+            <span lang="it">Ci troviamo in una posizione strategica per esplorare le meraviglie del territorio.</span>
+            <span lang="en">We are located in a strategic position to explore the wonders of the territory.</span>
+        </p>
         
         <div class="mappa-container">
             <iframe 
@@ -278,66 +343,84 @@
         <p>Contrada Padresergio, Monopoli (BA) - Italia</p>
         <p>Email: padresergiohouse@gmail.com | Tel: +39 3384699286</p>
         <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
-            <p>© 2026 PadreSergio House. Tutti i diritti riservati.</p>
+            <p>
+                <span lang="it">© 2026 PadreSergio House. Tutti i diritti riservati.</span>
+                <span lang="en">© 2026 PadreSergio House. All rights reserved.</span>
+            </p>
         </div>
     </footer>
 
     <div id="lightbox" class="lightbox">
         <span class="chiudi-lightbox" onclick="chiudiLightbox()">×</span>
-        <span class="freccia sinistra" onclick="cambiaFoto(-1)">&#10094;</span>
+        <span class="freccia sinistra" onclick="cambiaFoto(-1)">❮</span>
         <img class="lightbox-img" id="lightbox-img" src="">
-        <span class="freccia destra" onclick="cambiaFoto(1)">&#10095;</span>
+        <span class="freccia destra" onclick="cambiaFoto(1)">❯</span>
     </div>
 
     <script>
-        // --- GESTIONE MENU MOBILE ---
+        // --- GESTIONE CAMBIO LINGUA (AGGIUNTA) ---
+        function changeLang(lang) {
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('btn-it').classList.remove('active');
+            } else {
+                document.body.classList.remove('lang-en');
+                document.getElementById('btn-it').classList.add('active');
+                document.getElementById('btn-en').classList.remove('active');
+            }
+            // Salva la preferenza dell'utente
+            localStorage.setItem('pref-lang', lang);
+        }
+
+        // Carica la lingua all'avvio della pagina
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('pref-lang');
+            if (savedLang) changeLang(savedLang);
+        });
+
+        // --- MENU MOBILE ---
         function toggleMenu() {
             if (window.innerWidth <= 768) {
                 document.getElementById("menuNavigazione").classList.toggle("active");
             }
         }
 
-        // --- GESTIONE GALLERIA FOTO (FRECCE E SWIPE) ---
+        // --- GESTIONE GALLERIA FOTO (Tuo originale) ---
         let indiceFotoAttuale = 0;
         const fotoGalleria = Array.from(document.querySelectorAll('.foto'));
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
-        // Aprire foto
         fotoGalleria.forEach((foto, index) => {
             foto.addEventListener('click', function() {
                 indiceFotoAttuale = index;
                 mostraFoto(indiceFotoAttuale);
                 lightbox.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Blocca lo scorrimento del sito sotto
+                document.body.style.overflow = 'hidden'; 
             });
         });
 
-        // Chiudere foto
         function chiudiLightbox() {
             lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Sblocca lo scorrimento
+            document.body.style.overflow = 'auto'; 
         }
 
-        // Cambiare foto
         function cambiaFoto(n) {
             indiceFotoAttuale += n;
             mostraFoto(indiceFotoAttuale);
         }
 
-        // Mostrare foto corretta (ciclo continuo)
         function mostraFoto(n) {
             if (n >= fotoGalleria.length) { indiceFotoAttuale = 0; }
             if (n < 0) { indiceFotoAttuale = fotoGalleria.length - 1; }
             lightboxImg.src = fotoGalleria[indiceFotoAttuale].src;
         }
 
-        // Chiusura al click fuori dall'immagine
         lightbox.addEventListener('click', function(event) {
             if (event.target === lightbox) { chiudiLightbox(); }
         });
 
-        // Eventi da Tastiera (PC)
         document.addEventListener('keydown', function(e) {
             if (lightbox.style.display === 'flex') {
                 if (e.key === 'ArrowLeft') cambiaFoto(-1);
@@ -346,7 +429,6 @@
             }
         });
 
-        // Eventi Swipe da Cellulare (Touch)
         let toccoInizioX = 0;
         let toccoFineX = 0;
 
@@ -360,8 +442,8 @@
         }, {passive: true});
 
         function gestisciSwipe() {
-            if (toccoFineX < toccoInizioX - 50) cambiaFoto(1); // Swipe verso sinistra -> foto successiva
-            if (toccoFineX > toccoInizioX + 50) cambiaFoto(-1); // Swipe verso destra -> foto precedente
+            if (toccoFineX < toccoInizioX - 50) cambiaFoto(1); 
+            if (toccoFineX > toccoInizioX + 50) cambiaFoto(-1);
         }
     </script>
 </body>
