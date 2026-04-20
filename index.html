@@ -264,18 +264,80 @@
         </div>
     </section>
 
-    <section id="recensioni" class="sezione">
-        <h2 class="sezione-titolo">
-            <span lang="it">Dicono di noi</span><span lang="en">Guest Reviews</span>
-        </h2>
-        <p class="sezione-desc">
-            <span lang="it">Scopri cosa dicono i nostri ospiti.</span>
-            <span lang="en">Discover what our guests say about us.</span>
-        </p>
-        
-        <script defer async src='https://cdn.trustindex.io/loader.js?9758f1c699564627bf9643c4517'></script>
+    <style>
+    .recensioni-container { max-width: 900px; margin: 50px auto; text-align: center; padding: 0 20px; }
+    .recensioni-titolo { font-family: 'Georgia', serif; color: #5e7153; font-size: 28px; margin-bottom: 25px; }
+    .recensioni-scroll {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px;
+        scrollbar-width: thin; scrollbar-color: #8c9c83 #f4f7f6;
+    }
+    .recensione-card {
+        flex: 0 0 100%; scroll-snap-align: center; background: #fff; padding: 25px; border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid #5e7153; text-align: left; box-sizing: border-box;
+    }
+    @media(min-width: 768px){ .recensione-card { flex: 0 0 calc(50% - 10px); } }
+    .stelle { color: #f39c12; font-size: 18px; margin-bottom: 10px; letter-spacing: 2px;}
+    .recensione-testo { font-style: italic; color: #555; font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
+    .recensione-autore { font-weight: bold; color: #333; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+    .recensione-autore img { border-radius: 50%; width: 30px; height: 30px; }
+    .recensione-data { font-size: 13px; color: #999; margin-top: 3px; margin-left: 40px;}
+    
+    .recensioni-scroll::-webkit-scrollbar { height: 8px; }
+    .recensioni-scroll::-webkit-scrollbar-track { background: #f4f7f6; border-radius: 10px; }
+    .recensioni-scroll::-webkit-scrollbar-thumb { background-color: #8c9c83; border-radius: 10px; }
+</style>
 
-    </section>
+<div class="recensioni-container">
+    <h2 class="recensioni-titolo">Cosa dicono i nostri ospiti</h2>
+    <div id="recensioni-dinamiche" class="recensioni-scroll">
+        <p style="color:#999; width:100%; text-align:center; font-style:italic;">Caricamento recensioni ufficiali Google...</p>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQFiBa2235R4vpn5mbRJMhlsJGTJL4OjE&libraries=places"></script>
+
+<script>
+    function caricaRecensioniGoogle() {
+        var dummyDiv = document.createElement('div');
+        var service = new google.maps.places.PlacesService(dummyDiv);
+        
+        // Inserisci il tuo Place ID qui sotto!
+        var request = {
+            placeId: 'ChIJR0aif2u1RxMRyLy3NrDgSUE',
+            fields: ['reviews']
+        };
+
+        service.getDetails(request, function(place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
+                var html = '';
+                
+                place.reviews.forEach(function(review) {
+                    // Mostra solo le recensioni da 4 e 5 stelle
+                    if(review.rating >= 4) {
+                        var stelle = '⭐'.repeat(review.rating);
+                        var testoTroncato = review.text.length > 250 ? review.text.substring(0, 250) + "..." : review.text;
+                        
+                        html += '<div class="recensione-card">';
+                        html += '<div class="stelle">' + stelle + '</div>';
+                        html += '<div class="recensione-testo">"' + testoTroncato + '"</div>';
+                        html += '<div class="recensione-autore"><img src="' + review.profile_photo_url + '" alt="Foto Profilo"> ' + review.author_name + '</div>';
+                        html += '<div class="recensione-data">su Google</div>';
+                        html += '</div>';
+                    }
+                });
+                
+                if(html !== '') {
+                    document.getElementById('recensioni-dinamiche').innerHTML = html;
+                } else {
+                    document.getElementById('recensioni-dinamiche').innerHTML = '<p>Non ci sono ancora recensioni recenti.</p>';
+                }
+            }
+        });
+    }
+
+    // Avvia la ricerca appena la pagina ha finito di caricare
+    window.addEventListener('load', caricaRecensioniGoogle);
+</script>
 
     <section id="dovesiamo" class="sezione" style="background-color: white;">
         <h2 class="sezione-titolo">
