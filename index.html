@@ -143,6 +143,30 @@
             .hero h1 { font-size: 36px; }
             .sezione { padding: 50px 20px; }
             .freccia { font-size: 25px; }
+
+	/* RESPONSIVE CELLULARI */
+        @media (max-width: 768px) {
+            .menu-icon { display: block; }
+            .nav-links { 
+                display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; 
+                background-color: white; padding: 20px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { width: 100%; text-align: center; padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
+            .lang-switcher { margin-left: 0; margin-top: 10px; justify-content: center; width: 100%; padding: 10px 0; }
+            .hero h1 { font-size: 36px; }
+            .sezione { padding: 50px 20px; }
+            .freccia { font-size: 25px; }
+            
+            /* --- AGGIUNGI QUESTE RIGHE QUI SOTTO --- */
+            .btn-airbnb {
+                width: 85% !important; /* Lo rimpicciolisce leggermente per farlo rientrare */
+                margin: 15px auto !important; /* Lo centra perfettamente nel menu */
+                justify-content: center !important; /* Centra il logo e il testo al suo interno */
+                box-sizing: border-box; /* Impedisce ai bordi di sbavare */
+            }
+            /* --------------------------------------- */
+        }
         }
     </style>
 </head>
