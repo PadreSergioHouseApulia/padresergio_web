@@ -54,43 +54,12 @@
         .nav-links a { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; font-weight: bold; }
         .nav-links a:hover { color: var(--verde-primario); }
 
-	/* BOTTONE WHATSAPP FLUTTUANTE - METODO INFALLIBILE */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25D366;
-            border-radius: 50px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: transform 0.3s ease;
-        }
-        
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-        
-        .whatsapp-float svg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Questo fissa il centro dell'icona al centro del cerchio */
-            width: 35px;
-            height: 35px;
-            fill: white;
-            margin: 0;
-            padding: 0;
-        }
+        /* SELETTORE LINGUA */
+        .lang-switcher { display: flex; gap: 10px; margin-left: 10px; cursor: pointer; }
+        .lang-btn { opacity: 0.4; transition: 0.3s; font-size: 18px; filter: grayscale(100%); }
+        .lang-btn.active { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
 
-        /* Responsive per cellulari */
-        @media (max-width: 768px) {
-            .whatsapp-float { width: 55px; height: 55px; bottom: 20px; right: 20px; }
-            .whatsapp-float svg { width: 32px; height: 32px; } /* Rimpicciolisce leggermente l'icona in proporzione */
-        }
-
-	/* STILE TASTO AIRBNB NEL MENU */
+        /* STILE TASTO AIRBNB NEL MENU */
         .btn-airbnb { 
             background-color: #FF5A5F !important; 
             color: white !important; 
@@ -102,30 +71,70 @@
             gap: 6px; 
             transition: transform 0.3s ease; 
         }
-        .btn-airbnb:hover { 
-            transform: scale(1.05); /* Si ingrandisce leggermente senza cambiare colore */
-        }
-        .btn-airbnb svg {
-            fill: white; /* Forza il logo a rimanere bianco */
-	    margin-top: 4px;
-        }
+        .btn-airbnb:hover { transform: scale(1.05); }
+        .btn-airbnb svg { fill: white; margin-top: 4px; }
 
-        /* SELETTORE LINGUA */
-        .lang-switcher { display: flex; gap: 10px; margin-left: 10px; cursor: pointer; }
-        .lang-btn { opacity: 0.4; transition: 0.3s; font-size: 18px; filter: grayscale(100%); }
-        .lang-btn.active { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
-
-        /* SEZIONE HERO */
+        /* =========================================
+           HERO: EFFETTO CINEMATOGRAFICO (KEN BURNS) 
+           ========================================= */
         .hero { 
             height: 80vh; 
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('foto_copertina.jpg'); 
-            background-size: cover; background-position: center; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 0 20px;
+            position: relative;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            color: white; 
+            padding: 0 20px;
+            overflow: hidden;
         }
-        .hero h1 { font-size: 50px; margin-bottom: 15px; letter-spacing: 2px; }
-        .hero p { font-size: 20px; margin-bottom: 30px; font-weight: 300; max-width: 600px; }
-        .btn-prenota { background-color: white; color: var(--verde-primario); padding: 15px 30px; font-size: 16px; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; }
-        .btn-prenota:hover { background-color: var(--verde-primario); color: white; }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            background-color: black;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; 
+            background-position: center;
+            opacity: 0;
+            animation: kenburns 18s infinite;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+        }
+
+        /* Tempistiche per sfumare 3 foto */
+        .slide:nth-child(1) { animation-delay: 0s; background-image: url('foto_copertina.jpg'); }
+        .slide:nth-child(2) { animation-delay: 6s; background-image: url('foto_giardino.jpg'); }
+        .slide:nth-child(3) { animation-delay: 12s; background-image: url('prima_camera_da_letto_n_1.jpg'); }
+
+        @keyframes kenburns {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; }
+            25% { opacity: 1; }
+            40% { opacity: 0; transform: scale(1.08); } 
+            100% { opacity: 0; transform: scale(1.08); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; 
+        }
+
+        .hero h1 { font-size: 50px; margin-bottom: 15px; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero p { font-size: 20px; margin-bottom: 30px; font-weight: 300; max-width: 600px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .btn-prenota { background-color: white; color: var(--verde-primario); padding: 15px 30px; font-size: 16px; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .btn-prenota:hover { background-color: var(--verde-primario); color: white; transform: translateY(-3px); }
 
         /* SEZIONI */
         .sezione { padding: 80px 5%; text-align: center; max-width: 1200px; margin: 0 auto; }
@@ -142,67 +151,128 @@
         .foto { width: 100%; height: 300px; object-fit: cover; border-radius: 5px; transition: transform 0.3s; cursor: pointer; }
         .foto:hover { transform: scale(1.03); }
 
-        /* MAPPA */
-        .mappa-container { width: 100%; height: 400px; background-color: #eee; margin-top: 40px; border-radius: 8px; overflow: hidden; }
+        /* ESPERIENZE E MINI-SLIDER */
+        .griglia-esperienze {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .esperienza-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            border-bottom: 4px solid var(--verde-primario);
+            width: 100%;
+            max-width: 450px; /* INGRANDITA: Da 380px a 450px */
+            margin: 0 auto;
+        }
+
+        .esperienza-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        /* BOX DELLE FOTO PIU' ALTO PER FOTO VERTICALI */
+        .media-box {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4; /* Mantiene sempre le proporzioni verticali perfette */
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-container { position: relative; overflow: hidden; }
+        .slider-track { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); } /* Transizione più fluida */
+        .slider-track img { min-width: 100%; height: 100%; object-fit: cover; }
+        .slider-freccia { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; padding: 6px 12px; cursor: pointer; border-radius: 50%; font-size: 14px; font-weight: bold; user-select: none; z-index: 5; transition: background 0.3s; }
+        .slider-freccia:hover { background: var(--verde-primario); }
+        .slider-freccia.sx { left: 10px; }
+        .slider-freccia.dx { right: 10px; }
         
-        /* FOOTER E SOCIAL */
+        .esperienza-content { padding: 25px; }
+        .esperienza-content h3 { margin: 0 0 10px 0; font-size: 22px; color: var(--verde-primario); font-family: 'Georgia', serif; }
+        .esperienza-content p { font-size: 15px; color: #555; margin: 0 0 20px 0; line-height: 1.6; }
+
+        .btn-esperienza { display: inline-block; background-color: #f4f7f6; color: var(--verde-primario); padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: 1px solid var(--verde-chiaro); }
+        .btn-esperienza:hover { background-color: var(--verde-primario); color: white; }
+
+        /* MAPPA E FOOTER */
+        .mappa-container { width: 100%; height: 400px; background-color: #eee; margin-top: 40px; border-radius: 8px; overflow: hidden; }
         footer { background-color: var(--verde-primario); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
         footer p { margin: 10px 0; opacity: 0.8; font-size: 14px; }
-        
         .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
         .social-links a { color: white; display: inline-block; transition: transform 0.3s; opacity: 0.9; }
         .social-links a:hover { transform: scale(1.2); opacity: 1; }
         .social-links svg { width: 28px; height: 28px; fill: currentColor; }
 
-        /* LIGHTBOX */
+        /* LIGHTBOX E RECENSIONI */
         .lightbox { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; }
         .lightbox-img { max-width: 85%; max-height: 85vh; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
         .chiudi-lightbox { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.2s; z-index: 2001; }
         .chiudi-lightbox:hover { color: var(--verde-chiaro); }
-        
         .freccia { cursor: pointer; position: absolute; top: 50%; padding: 16px; color: white; font-weight: bold; font-size: 40px; background-color: rgba(0,0,0,0.3); border-radius: 5px; z-index: 2001; }
-        .freccia.sinistra { left: 20px; }
-        .freccia.destra { right: 20px; }
-
+        .freccia.sinistra { left: 20px; } .freccia.destra { right: 20px; }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* RESPONSIVE CELLULARI */
-        @media (max-width: 768px) {
-            .menu-icon { display: block; }
-            .nav-links { 
-                display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; 
-                background-color: white; padding: 20px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee;
-            }
-            .nav-links.active { display: flex; }
-            .nav-links a { width: 100%; text-align: center; padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
-            .lang-switcher { margin-left: 0; margin-top: 10px; justify-content: center; width: 100%; padding: 10px 0; }
-            .hero h1 { font-size: 36px; }
-            .sezione { padding: 50px 20px; }
-            .freccia { font-size: 25px; }
+        .recensioni-container { max-width: 900px; margin: 50px auto; text-align: center; padding: 0 20px; }
+        .recensioni-titolo { font-family: 'Georgia', serif; color: #5e7153; font-size: 28px; margin-bottom: 25px; }
+        .recensioni-scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: #8c9c83 #f4f7f6; }
+        .recensione-card { flex: 0 0 100%; scroll-snap-align: center; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid #5e7153; text-align: left; box-sizing: border-box; }
+        @media(min-width: 768px){ .recensione-card { flex: 0 0 calc(50% - 10px); } }
+        .stelle { color: #f39c12; font-size: 18px; margin-bottom: 10px; letter-spacing: 2px;}
+        .recensione-testo { font-style: italic; color: #555; font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
+        .recensione-autore { font-weight: bold; color: #333; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+        .recensione-autore img { border-radius: 50%; width: 30px; height: 30px; }
+        .recensione-data { font-size: 13px; color: #999; margin-top: 3px; margin-left: 40px;}
+        .recensioni-scroll::-webkit-scrollbar { height: 8px; }
+        .recensioni-scroll::-webkit-scrollbar-track { background: #f4f7f6; border-radius: 10px; }
+        .recensioni-scroll::-webkit-scrollbar-thumb { background-color: #8c9c83; border-radius: 10px; }
 
-	/* RESPONSIVE CELLULARI */
+        /* WHATSAPP FLOAT */
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25D366; border-radius: 50px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000; transition: transform 0.3s ease; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; fill: white; }
+
+        /* =========================================
+           BARRA "PRENOTA ORA" INCOLLATA SU MOBILE
+           ========================================= */
+        .mobile-sticky-bar { display: none; }
+
         @media (max-width: 768px) {
             .menu-icon { display: block; }
-            .nav-links { 
-                display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; 
-                background-color: white; padding: 20px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee;
-            }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background-color: white; padding: 20px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee; }
             .nav-links.active { display: flex; }
             .nav-links a { width: 100%; text-align: center; padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
             .lang-switcher { margin-left: 0; margin-top: 10px; justify-content: center; width: 100%; padding: 10px 0; }
             .hero h1 { font-size: 36px; }
             .sezione { padding: 50px 20px; }
             .freccia { font-size: 25px; }
-            
-            /* --- AGGIUNGI QUESTE RIGHE QUI SOTTO --- */
-            .btn-airbnb {
-                width: 85% !important; /* Lo rimpicciolisce leggermente per farlo rientrare */
-                margin: 15px auto !important; /* Lo centra perfettamente nel menu */
-                justify-content: center !important; /* Centra il logo e il testo al suo interno */
-                box-sizing: border-box; /* Impedisce ai bordi di sbavare */
+            .btn-airbnb { width: 85% !important; margin: 15px auto !important; justify-content: center !important; box-sizing: border-box; }
+
+            /* Attivazione Barra Mobile */
+            .mobile-sticky-bar {
+                display: flex; justify-content: space-between; align-items: center;
+                position: fixed; bottom: 0; left: 0; width: 100%;
+                background-color: white; padding: 12px 20px; box-shadow: 0 -2px 15px rgba(0,0,0,0.15);
+                z-index: 1000; box-sizing: border-box;
             }
-            /* --------------------------------------- */
-        }
+            .sticky-testo { font-size: 13px; color: var(--testo-chiaro); font-weight: bold; line-height: 1.2;}
+            .sticky-testo strong { color: var(--testo-scuro); font-size: 15px; display: block; }
+            .sticky-btn { background-color: var(--verde-primario); color: white; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 14px; text-decoration: none; }
+            
+            /* Aggiunge spazio in fondo per non coprire il footer */
+            body { padding-bottom: 70px; }
+            
+            /* Solleva WhatsApp per non farlo andare sopra la barra */
+            .whatsapp-float { width: 50px; height: 50px; bottom: 85px; right: 20px; }
+            .whatsapp-float svg { width: 28px; height: 28px; }
         }
     </style>
 </head>
@@ -215,6 +285,7 @@
             <a href="#struttura" onclick="toggleMenu()"><span lang="it">La Struttura</span><span lang="en">The Property</span></a>
             <a href="#galleria" onclick="toggleMenu()"><span lang="it">Galleria</span><span lang="en">Gallery</span></a>
             <a href="#recensioni" onclick="toggleMenu()"><span lang="it">Recensioni</span><span lang="en">Reviews</span></a>
+            <a href="#esperienze" onclick="toggleMenu()"><span lang="it">Esperienze</span><span lang="en">Experiences</span></a>
             <a href="#dovesiamo" onclick="toggleMenu()"><span lang="it">Dove Siamo</span><span lang="en">Location</span></a>
             
             <a href="https://www.airbnb.it/rooms/660983193087442876?" target="_blank" class="btn-airbnb">
@@ -230,19 +301,26 @@
     </header>
 
     <section class="hero">
-        <h1>
-            <span lang="it">Benvenuti in Puglia</span>
-            <span lang="en">Welcome to Puglia</span>
-        </h1>
-        <p>
-            <span lang="it">Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</span>
-            <span lang="en">An oasis of relaxation and charm for your unforgettable holidays, just steps away from the beauties of our land.</span>
-        </p>
+        <div class="hero-slideshow">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
         
-        <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" target="_blank" class="btn-prenota">
-            <span lang="it">Richiedi Disponibilità</span>
-            <span lang="en">Check Availability</span>
-        </a>
+        <div class="hero-content">
+            <h1>
+                <span lang="it">Benvenuti in Puglia</span>
+                <span lang="en">Welcome to Puglia</span>
+            </h1>
+            <p>
+                <span lang="it">Un'oasi di relax e charme per le tue vacanze indimenticabili, a due passi dalle bellezze della nostra terra.</span>
+                <span lang="en">An oasis of relaxation and charm for your unforgettable holidays, just steps away from the beauties of our land.</span>
+            </p>
+            <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" target="_blank" class="btn-prenota">
+                <span lang="it">Richiedi Disponibilità</span>
+                <span lang="en">Check Availability</span>
+            </a>
+        </div>
     </section>
 
     <section id="struttura" class="sezione">
@@ -256,70 +334,14 @@
         </p>
         
         <div class="griglia-servizi">
-            <div class="servizio-card">
-                <div class="servizio-icona">📶</div>
-                <h3><span lang="it">Wi-Fi Veloce</span><span lang="en">Fast Wi-Fi</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Connessione gratuita in tutta la struttura per navigare o lavorare.</span>
-                    <span lang="en">Free connection throughout the property to browse or work.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">❄️</div>
-                <h3><span lang="it">Aria Condizionata</span><span lang="en">Air Conditioning</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Ambienti sempre freschi e climatizzati per il massimo riposo.</span>
-                    <span lang="en">Always cool and air-conditioned environments for maximum rest.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">🅿️</div>
-                <h3><span lang="it">Parcheggio</span><span lang="en">Parking</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Posto auto comodo e sicuro a pochi passi dall'ingresso.</span>
-                    <span lang="en">Convenient and safe parking space just steps from the entrance.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">🥐</div>
-                <h3><span lang="it">Colazione</span><span lang="en">Breakfast</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Ottima colazione a snack inclusa tra cui merendine, succhi di frutta, the, tisane e caffè.</span>
-                    <span lang="en">Excellent snack breakfast included: snacks, fruit juices, tea, herbal teas and coffee.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">🏡</div>
-                <h3><span lang="it">Giardino</span><span lang="en">Garden</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Comodo spazio esterno per vivere momenti di convivialità e relax.</span>
-                    <span lang="en">Comfortable outdoor space for moments of conviviality and relaxation.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">🫧</div>
-                <h3><span lang="it">Lavanderia</span><span lang="en">Laundry</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Comoda lavatrice inclusa, servizio di asciugatrice a pagamento.</span>
-                    <span lang="en">Convenient washing machine included, dryer service available for a fee.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">🛏️</div>
-                <h3><span lang="it">Biancheria</span><span lang="en">Bed Linen</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Lenzuola e set asciugamani inclusi.</span>
-                    <span lang="en">Bed sheets and towel sets included.</span>
-                </p>
-            </div>
-            <div class="servizio-card">
-                <div class="servizio-icona">☀️</div>
-                <h3><span lang="it">Esperienze</span><span lang="en">Experiences</span></h3>
-                <p style="color:var(--testo-chiaro); font-size:14px;">
-                    <span lang="it">Esperienze uniche organizzate direttamente dall'host. Per informazioni e disponibilità chiedere in struttura.</span>
-                    <span lang="en">Unique experiences organized directly by the host. Ask at the property for info and availability.</span>
-                </p>
-            </div>
+            <div class="servizio-card"><div class="servizio-icona">📶</div><h3><span lang="it">Wi-Fi Veloce</span><span lang="en">Fast Wi-Fi</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Connessione gratuita in tutta la struttura per navigare o lavorare.</span><span lang="en">Free connection throughout the property to browse or work.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">❄️</div><h3><span lang="it">Aria Condizionata</span><span lang="en">Air Conditioning</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Ambienti sempre freschi e climatizzati per il massimo riposo.</span><span lang="en">Always cool and air-conditioned environments for maximum rest.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">🅿️</div><h3><span lang="it">Parcheggio</span><span lang="en">Parking</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Posto auto comodo e sicuro a pochi passi dall'ingresso.</span><span lang="en">Convenient and safe parking space just steps from the entrance.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">🥐</div><h3><span lang="it">Colazione</span><span lang="en">Breakfast</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Ottima colazione a snack inclusa tra cui merendine, succhi di frutta, the, tisane e caffè.</span><span lang="en">Excellent snack breakfast included: snacks, fruit juices, tea, herbal teas and coffee.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">🏡</div><h3><span lang="it">Giardino</span><span lang="en">Garden</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Comodo spazio esterno per vivere momenti di convivialità e relax.</span><span lang="en">Comfortable outdoor space for moments of conviviality and relaxation.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">🫧</div><h3><span lang="it">Lavanderia</span><span lang="en">Laundry</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Comoda lavatrice inclusa, servizio di asciugatrice a pagamento.</span><span lang="en">Convenient washing machine included, dryer service available for a fee.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">🛏️</div><h3><span lang="it">Biancheria</span><span lang="en">Bed Linen</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Lenzuola e set asciugamani inclusi.</span><span lang="en">Bed sheets and towel sets included.</span></p></div>
+            <div class="servizio-card"><div class="servizio-icona">☀️</div><h3><span lang="it">Esperienze</span><span lang="en">Experiences</span></h3><p style="color:var(--testo-chiaro); font-size:14px;"><span lang="it">Esperienze uniche organizzate direttamente dall'host. Per informazioni e disponibilità chiedere in struttura.</span><span lang="en">Unique experiences organized directly by the host. Ask at the property for info and availability.</span></p></div>
         </div>
     </section>
 
@@ -346,80 +368,61 @@
         </div>
     </section>
 
-    <style>
-    .recensioni-container { max-width: 900px; margin: 50px auto; text-align: center; padding: 0 20px; }
-    .recensioni-titolo { font-family: 'Georgia', serif; color: #5e7153; font-size: 28px; margin-bottom: 25px; }
-    .recensioni-scroll {
-        display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px;
-        scrollbar-width: thin; scrollbar-color: #8c9c83 #f4f7f6;
-    }
-    .recensione-card {
-        flex: 0 0 100%; scroll-snap-align: center; background: #fff; padding: 25px; border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid #5e7153; text-align: left; box-sizing: border-box;
-    }
-    @media(min-width: 768px){ .recensione-card { flex: 0 0 calc(50% - 10px); } }
-    .stelle { color: #f39c12; font-size: 18px; margin-bottom: 10px; letter-spacing: 2px;}
-    .recensione-testo { font-style: italic; color: #555; font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
-    .recensione-autore { font-weight: bold; color: #333; font-size: 15px; display: flex; align-items: center; gap: 10px; }
-    .recensione-autore img { border-radius: 50%; width: 30px; height: 30px; }
-    .recensione-data { font-size: 13px; color: #999; margin-top: 3px; margin-left: 40px;}
-    
-    .recensioni-scroll::-webkit-scrollbar { height: 8px; }
-    .recensioni-scroll::-webkit-scrollbar-track { background: #f4f7f6; border-radius: 10px; }
-    .recensioni-scroll::-webkit-scrollbar-thumb { background-color: #8c9c83; border-radius: 10px; }
-</style>
-
-<div class="recensioni-container">
-    <h2 class="recensioni-titolo">Cosa dicono i nostri ospiti</h2>
-    <div id="recensioni-dinamiche" class="recensioni-scroll">
-        <p style="color:#999; width:100%; text-align:center; font-style:italic;">Caricamento recensioni ufficiali Google...</p>
+    <div id="recensioni" class="recensioni-container">
+        <h2 class="recensioni-titolo">
+            <span lang="it">Cosa dicono i nostri ospiti</span>
+            <span lang="en">What our guests say</span>
+        </h2>
+        <div id="recensioni-dinamiche" class="recensioni-scroll">
+            <p style="color:#999; width:100%; text-align:center; font-style:italic;">
+                <span lang="it">Caricamento recensioni ufficiali Google...</span>
+                <span lang="en">Loading official Google reviews...</span>
+            </p>
+        </div>
     </div>
-</div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQFiBa2235R4vpn5mbRJMhlsJGTJL4OjE&libraries=places"></script>
+    <section id="esperienze" class="sezione" style="background-color: var(--crema-sfondo);">
+        <h2 class="sezione-titolo">
+            <span lang="it">Le Nostre Esperienze</span>
+            <span lang="en">Our Experiences</span>
+        </h2>
+        <p class="sezione-desc" style="margin-bottom: 20px;">
+            <span lang="it">Rendi il tuo soggiorno indimenticabile partecipando ad un'autentica Cooking Class pugliese! Metti le mani in pasta e vivi la magia della nostra tradizione culinaria.</span>
+            <span lang="en">Make your stay unforgettable by joining an authentic Apulian Cooking Class! Get your hands in the dough and experience the magic of our culinary tradition.</span>
+        </p>
 
-<script>
-    function caricaRecensioniGoogle() {
-        var dummyDiv = document.createElement('div');
-        var service = new google.maps.places.PlacesService(dummyDiv);
-        
-        // Inserisci il tuo Place ID qui sotto!
-        var request = {
-            placeId: 'ChIJR0aif2u1RxMRyLy3NrDgSUE',
-            fields: ['reviews']
-        };
+        <div class="griglia-esperienze">
+            
+            <div class="esperienza-card">
+                <div class="media-box slider-container">
+                    
+                    <div class="slider-track" data-index="0">
+                        <img src="cooking1.jpg" alt="Cooking Class 1">
+                        <img src="cooking2.jpg" alt="Cooking Class 2">
+                        <img src="cooking3.jpg" alt="Cooking Class 3">
+                        <img src="cooking4.jpg" alt="Cooking Class 4">
+                        <img src="cooking5.jpg" alt="Cooking Class 5">
+                        <img src="cooking6.jpg" alt="Cooking Class 6">
+                    </div>
 
-        service.getDetails(request, function(place, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
-                var html = '';
-                
-                place.reviews.forEach(function(review) {
-                    // Mostra solo le recensioni da 4 e 5 stelle
-                    if(review.rating >= 4) {
-                        var stelle = '⭐'.repeat(review.rating);
-                        var testoTroncato = review.text.length > 250 ? review.text.substring(0, 250) + "..." : review.text;
-                        
-                        html += '<div class="recensione-card">';
-                        html += '<div class="stelle">' + stelle + '</div>';
-                        html += '<div class="recensione-testo">"' + testoTroncato + '"</div>';
-                        html += '<div class="recensione-autore"><img src="' + review.profile_photo_url + '" alt="Foto Profilo"> ' + review.author_name + '</div>';
-                        html += '<div class="recensione-data">su Google</div>';
-                        html += '</div>';
-                    }
-                });
-                
-                if(html !== '') {
-                    document.getElementById('recensioni-dinamiche').innerHTML = html;
-                } else {
-                    document.getElementById('recensioni-dinamiche').innerHTML = '<p>Non ci sono ancora recensioni recenti.</p>';
-                }
-            }
-        });
-    }
+                    <span class="slider-freccia sx" onclick="muoviSlider(this, -1)">❮</span>
+                    <span class="slider-freccia dx" onclick="muoviSlider(this, 1)">❯</span>
 
-    // Avvia la ricerca appena la pagina ha finito di caricare
-    window.addEventListener('load', caricaRecensioniGoogle);
-</script>
+                </div>
+                <div class="esperienza-content">
+                    <h3>Cooking Class</h3>
+                    <p>
+                        <span lang="it">Impara i segreti della vera pasta fresca pugliese, guidato da mani esperte. Guarda la magia prendere forma, un'esperienza divertente, perfetta per coppie e famiglie. Dopo la preparazione, degusteremo insieme i piatti creati!</span>
+                        <span lang="en">Learn the secrets of authentic Apulian fresh pasta guided by expert hands. Watch the magic take shape, a fun experience, perfect for couples and families. After preparation, we will taste together the created dishes!</span>
+                    </p>
+                    <a href="https://wa.me/393384699286?text=Ciao%20PadreSergio%20House,%20vorrei%20avere%20maggiori%20informazioni%20sulla%20Cooking%20Class!" class="btn-esperienza" target="_blank">
+                        <span lang="it">Richiedi Info</span><span lang="en">Request Info</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <section id="dovesiamo" class="sezione" style="background-color: white;">
         <h2 class="sezione-titolo">
@@ -467,7 +470,21 @@
         <span class="freccia destra" onclick="cambiaFoto(1)">❯</span>
     </div>
 
+    <div class="mobile-sticky-bar">
+        <div class="sticky-testo">
+            <span lang="it">Ti aspettiamo!<strong>Miglior Prezzo</strong></span>
+            <span lang="en">We await you!<strong>Best Price</strong></span>
+        </div>
+        <a href="https://padresergiohouseapulia.github.io/padresergio_richiesta/" class="sticky-btn">
+            <span lang="it">Prenota Ora</span>
+            <span lang="en">Book Now</span>
+        </a>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQFiBa2235R4vpn5mbRJMhlsJGTJL4OjE&libraries=places"></script>
+
     <script>
+        // --- FUNZIONI LINGUA E MENU ---
         function changeLang(lang) {
             if (lang === 'en') {
                 document.body.classList.add('lang-en');
@@ -483,7 +500,19 @@
 
         window.onload = () => {
             const saved = localStorage.getItem('pref-lang');
-            if (saved) changeLang(saved);
+            if (saved) {
+                // Se l'ospite aveva già scelto una lingua, usiamo quella
+                changeLang(saved);
+            } else {
+                // MAGIA: Rileva la lingua del telefono dell'ospite!
+                const userLang = navigator.language || navigator.userLanguage;
+                // Se il telefono è impostato su Italiano, mostra ITA. Altrimenti, forza l'Inglese.
+                if (userLang.toLowerCase().startsWith('it')) {
+                    changeLang('it');
+                } else {
+                    changeLang('en');
+                }
+            }
         };
 
         function toggleMenu() {
@@ -492,6 +521,7 @@
             }
         }
 
+        // --- FUNZIONI GALLERIA LIGHTBOX ---
         let indiceFotoAttuale = 0;
         const fotoGalleria = Array.from(document.querySelectorAll('.foto'));
         const lightbox = document.getElementById('lightbox');
@@ -531,12 +561,77 @@
             if (xFine < xInizio - 50) cambiaFoto(1);
             if (xFine > xInizio + 50) cambiaFoto(-1);
         }, {passive: true});
-    </script>
 
-	<a href="https://wa.me/393384699286?text=Ciao%20PadreSergio%20House,%20stavo%20guardando%20il%20vostro%20sito%20e%20vorrei%20un%27informazione..." class="whatsapp-float" target="_blank" aria-label="Contattaci su WhatsApp">
-        <svg viewBox="0 0 24 24" width="35" height="35" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    </a>
+        // --- FUNZIONI RECENSIONI GOOGLE ---
+        function caricaRecensioniGoogle() {
+            var dummyDiv = document.createElement('div');
+            var service = new google.maps.places.PlacesService(dummyDiv);
+            
+            var request = {
+                placeId: 'ChIJR0aif2u1RxMRyLy3NrDgSUE',
+                fields: ['reviews']
+            };
+
+            service.getDetails(request, function(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
+                    var html = '';
+                    
+                    place.reviews.forEach(function(review) {
+                        if(review.rating >= 4) {
+                            var stelle = '⭐'.repeat(review.rating);
+                            var testoTroncato = review.text.length > 250 ? review.text.substring(0, 250) + "..." : review.text;
+                            
+                            html += '<div class="recensione-card">';
+                            html += '<div class="stelle">' + stelle + '</div>';
+                            html += '<div class="recensione-testo">"' + testoTroncato + '"</div>';
+                            html += '<div class="recensione-autore"><img src="' + review.profile_photo_url + '" alt="Foto Profilo"> ' + review.author_name + '</div>';
+                            html += '<div class="recensione-data">su Google</div>';
+                            html += '</div>';
+                        }
+                    });
+                    
+                    if(html !== '') {
+                        document.getElementById('recensioni-dinamiche').innerHTML = html;
+                    } else {
+                        document.getElementById('recensioni-dinamiche').innerHTML = '<p>Non ci sono ancora recensioni recenti.</p>';
+                    }
+                }
+            });
+        }
+        window.addEventListener('load', caricaRecensioniGoogle);
+
+        // --- FUNZIONE PER LO SLIDER DELLE ESPERIENZE ---
+        function muoviSlider(frecciaCliccata, direzione) {
+            const container = frecciaCliccata.parentElement;
+            const track = container.querySelector('.slider-track');
+            const numeroElementi = track.children.length;
+            
+            let indiceAttuale = parseInt(track.getAttribute('data-index') || '0');
+            
+            indiceAttuale += direzione;
+            
+            if (indiceAttuale < 0) { indiceAttuale = numeroElementi - 1; }
+            if (indiceAttuale >= numeroElementi) { indiceAttuale = 0; }
+            
+            track.setAttribute('data-index', indiceAttuale);
+            track.style.transform = `translateX(-${indiceAttuale * 100}%)`;
+        }
+
+        // --- AUTO-SCROLL SLIDER ESPERIENZE ---
+        setInterval(() => {
+            const tracks = document.querySelectorAll('.slider-track');
+            tracks.forEach(track => {
+                if(track.children.length > 1) {
+                    let indiceAttuale = parseInt(track.getAttribute('data-index') || '0');
+                    indiceAttuale++;
+                    if (indiceAttuale >= track.children.length) { indiceAttuale = 0; }
+                    track.setAttribute('data-index', indiceAttuale);
+                    track.style.transform = `translateX(-${indiceAttuale * 100}%)`;
+                }
+            });
+        }, 3500); // Cambia immagine ogni 3.5 secondi
+
+    </script>
 
 </body>
 </html>
