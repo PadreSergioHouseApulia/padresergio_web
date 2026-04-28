@@ -211,6 +211,38 @@
         .btn-esperienza { display: inline-block; background-color: #f4f7f6; color: var(--verde-primario); padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: 1px solid var(--verde-chiaro); }
         .btn-esperienza:hover { background-color: var(--verde-primario); color: white; }
 
+        /* DISTANZE STRATEGICHE (I DINTORNI) */
+        .griglia-dintorni {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            padding: 0 5%;
+        }
+        .dintorni-card {
+            background-color: var(--crema-sfondo);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #eef1f0;
+        }
+        .dintorni-icona {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+        .dintorni-titolo {
+            font-weight: bold;
+            color: var(--testo-scuro);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .dintorni-tempo {
+            color: var(--verde-primario);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         /* MAPPA E FOOTER */
         .mappa-container { width: 100%; height: 400px; background-color: #eee; margin-top: 40px; border-radius: 8px; overflow: hidden; }
         footer { background-color: var(--verde-primario); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
@@ -411,7 +443,6 @@
                         <img src="cooking4.jpg" alt="Cooking Class 4">
                         <img src="cooking5.jpg" alt="Cooking Class 5">
                         <img src="cooking6.jpg" alt="Cooking Class 6">
-                        <img src="cooking7.jpg" alt="Cooking Class 7">
                     </div>
 
                     <span class="slider-freccia sx" onclick="muoviSlider(this, -1)">❮</span>
@@ -433,10 +464,39 @@
         </div>
     </section>
 
-    <section id="dovesiamo" class="sezione" style="background-color: white;">
+    <section id="dovesiamo" class="sezione" style="background-color: white; padding-bottom: 0;">
         <h2 class="sezione-titolo">
-            <span lang="it">Dove Siamo</span><span lang="en">Location</span>
+            <span lang="it">La Posizione Perfetta</span>
+            <span lang="en">The Perfect Location</span>
         </h2>
+        <p class="sezione-desc">
+            <span lang="it">PadreSergio House è il punto di partenza ideale per esplorare le meraviglie della Puglia, lontano dal caos ma vicino a tutto ciò che desideri.</span>
+            <span lang="en">PadreSergio House is the ideal starting point to explore the wonders of Puglia, away from the chaos but close to everything you desire.</span>
+        </p>
+
+        <div class="griglia-dintorni">
+            <div class="dintorni-card">
+                <div class="dintorni-icona">🏖️</div>
+                <div class="dintorni-titolo"><span lang="it">Mare e Spiagge</span><span lang="en">Sea & Beaches</span></div>
+                <div class="dintorni-tempo"><span lang="it">a 10 minuti</span><span lang="en">10 mins away</span></div>
+            </div>
+            <div class="dintorni-card">
+                <div class="dintorni-icona">🏘️</div>
+                <div class="dintorni-titolo"><span lang="it">Centro di Monopoli</span><span lang="en">Monopoli Center</span></div>
+                <div class="dintorni-tempo"><span lang="it">a 12 minuti</span><span lang="en">12 mins away</span></div>
+            </div>
+            <div class="dintorni-card">
+                <div class="dintorni-icona">📸</div>
+                <div class="dintorni-titolo"><span lang="it">Polignano a Mare</span><span lang="en">Polignano a Mare</span></div>
+                <div class="dintorni-tempo"><span lang="it">a 20 minuti</span><span lang="en">20 mins away</span></div>
+            </div>
+            <div class="dintorni-card">
+                <div class="dintorni-icona">✈️</div>
+                <div class="dintorni-titolo"><span lang="it">Aeroporto Bari</span><span lang="en">Bari Airport</span></div>
+                <div class="dintorni-tempo"><span lang="it">a 50 minuti</span><span lang="en">50 mins away</span></div>
+            </div>
+        </div>
+
         <div class="mappa-container">
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d744.6458046547098!2d17.2205409!3d40.9191685!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347b56b7fa24647%3A0x4149e0b036b7bcc8!2sPadresergio%20house%20Apulia!5e1!3m2!1sit!2sit!4v1775743901566!5m2!1sit!2sit" 
@@ -510,9 +570,12 @@
         window.onload = () => {
             const saved = localStorage.getItem('pref-lang');
             if (saved) {
+                // Se l'ospite aveva già scelto una lingua, usiamo quella
                 changeLang(saved);
             } else {
+                // MAGIA: Rileva la lingua del telefono dell'ospite!
                 const userLang = navigator.language || navigator.userLanguage;
+                // Se il telefono è impostato su Italiano, mostra ITA. Altrimenti, forza l'Inglese.
                 if (userLang.toLowerCase().startsWith('it')) {
                     changeLang('it');
                 } else {
@@ -637,12 +700,11 @@
             });
         }, 4500); 
 
-        // --- AGGIUNTO: SWIPE CON IL DITO PER I CELLULARI ---
+        // --- SWIPE CON IL DITO PER I CELLULARI ---
         let sliderStartX = 0;
         document.querySelectorAll('.slider-container').forEach(container => {
             container.addEventListener('touchstart', e => {
                 sliderStartX = e.changedTouches[0].screenX;
-                // Mette in pausa l'auto-scroll quando si tocca per non infastidire l'utente
                 clearInterval(autoScrollIntervallo);
             }, {passive: true});
             
@@ -651,14 +713,8 @@
                 let frecciaDx = container.querySelector('.slider-freccia.dx');
                 let frecciaSx = container.querySelector('.slider-freccia.sx');
                 
-                if (sliderEndX < sliderStartX - 40 && frecciaDx) { 
-                    // Swipe verso sinistra (prossima foto)
-                    muoviSlider(frecciaDx, 1);
-                }
-                if (sliderEndX > sliderStartX + 40 && frecciaSx) { 
-                    // Swipe verso destra (foto precedente)
-                    muoviSlider(frecciaSx, -1);
-                }
+                if (sliderEndX < sliderStartX - 40 && frecciaDx) { muoviSlider(frecciaDx, 1); }
+                if (sliderEndX > sliderStartX + 40 && frecciaSx) { muoviSlider(frecciaSx, -1); }
             }, {passive: true});
         });
 
