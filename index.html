@@ -178,6 +178,7 @@
             box-shadow: 0 12px 20px rgba(0,0,0,0.15);
         }
 
+        /* BOX DELLE FOTO PIU' ALTO PER FOTO VERTICALI */
         .media-box {
             width: 100%;
             height: auto;
@@ -187,10 +188,15 @@
             overflow: hidden;
         }
 
-        .slider-container { position: relative; overflow: hidden; }
+        .slider-container { position: relative; overflow: hidden; touch-action: pan-y; }
         
-        /* SCORRIMENTO MOLTO PIU' FLUIDO ED ELEGANTE */
-        .slider-track { display: flex; height: 100%; transition: transform 1s ease-in-out; } 
+        /* SCORRIMENTO PIU' FLUIDO ED ACCELERATO PER CELLULARI */
+        .slider-track { 
+            display: flex; 
+            height: 100%; 
+            transition: transform 0.5s ease-in-out; 
+            will-change: transform; /* Attiva l'accelerazione hardware della scheda video */
+        } 
         
         .slider-track img { min-width: 100%; height: 100%; object-fit: cover; }
         .slider-freccia { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; padding: 6px 12px; cursor: pointer; border-radius: 50%; font-size: 14px; font-weight: bold; user-select: none; z-index: 5; transition: background 0.3s; }
@@ -503,12 +509,9 @@
         window.onload = () => {
             const saved = localStorage.getItem('pref-lang');
             if (saved) {
-                // Se l'ospite aveva già scelto una lingua, usiamo quella
                 changeLang(saved);
             } else {
-                // MAGIA: Rileva la lingua del telefono dell'ospite!
                 const userLang = navigator.language || navigator.userLanguage;
-                // Se il telefono è impostato su Italiano, mostra ITA. Altrimenti, forza l'Inglese.
                 if (userLang.toLowerCase().startsWith('it')) {
                     changeLang('it');
                 } else {
@@ -604,7 +607,7 @@
 
         // --- FUNZIONE PER LO SLIDER DELLE ESPERIENZE ---
         function muoviSlider(frecciaCliccata, direzione) {
-            const container = frecciaCliccata.parentElement;
+            const container = frecciaCliccata.closest('.slider-container');
             const track = container.querySelector('.slider-track');
             const numeroElementi = track.children.length;
             
@@ -620,7 +623,7 @@
         }
 
         // --- AUTO-SCROLL SLIDER ESPERIENZE ---
-        setInterval(() => {
+        let autoScrollIntervallo = setInterval(() => {
             const tracks = document.querySelectorAll('.slider-track');
             tracks.forEach(track => {
                 if(track.children.length > 1) {
@@ -631,7 +634,32 @@
                     track.style.transform = `translateX(-${indiceAttuale * 100}%)`;
                 }
             });
-        }, 5000); // Cambia immagine ogni 3.5 secondi
+        }, 4500); 
+
+        // --- AGGIUNTO: SWIPE CON IL DITO PER I CELLULARI ---
+        let sliderStartX = 0;
+        document.querySelectorAll('.slider-container').forEach(container => {
+            container.addEventListener('touchstart', e => {
+                sliderStartX = e.changedTouches[0].screenX;
+                // Mette in pausa l'auto-scroll quando si tocca per non infastidire l'utente
+                clearInterval(autoScrollIntervallo);
+            }, {passive: true});
+            
+            container.addEventListener('touchend', e => {
+                let sliderEndX = e.changedTouches[0].screenX;
+                let frecciaDx = container.querySelector('.slider-freccia.dx');
+                let frecciaSx = container.querySelector('.slider-freccia.sx');
+                
+                if (sliderEndX < sliderStartX - 40 && frecciaDx) { 
+                    // Swipe verso sinistra (prossima foto)
+                    muoviSlider(frecciaDx, 1);
+                }
+                if (sliderEndX > sliderStartX + 40 && frecciaSx) { 
+                    // Swipe verso destra (foto precedente)
+                    muoviSlider(frecciaSx, -1);
+                }
+            }, {passive: true});
+        });
 
     </script>
 
