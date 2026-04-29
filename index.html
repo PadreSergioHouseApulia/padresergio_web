@@ -43,7 +43,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            /* Sfumatura morbida di 0.6 secondi */
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out; 
         }
         #preloader h1 {
             color: var(--verde-primario);
@@ -51,7 +52,8 @@
             font-size: 32px;
             letter-spacing: 2px;
             opacity: 0;
-            animation: fadeText 2s ease-in-out forwards;
+            /* Testo visibile per 1.5 secondi */
+            animation: fadeText 1.5s ease-in-out forwards; 
         }
         @keyframes fadeText {
             0% { opacity: 0; transform: translateY(15px); }
@@ -605,7 +607,7 @@
 
         window.onload = () => {
             
-            // 1. Rimuovi il Pre-loader e SBLOCCA LO SCROLL
+            // 1. Rimuovi il Pre-loader e SBLOCCA LO SCROLL (Tempi bilanciati)
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.classList.add('preloader-hidden');
@@ -613,9 +615,9 @@
                 // MAGIA: Sblocca lo scroll della pagina togliendo la classe al body
                 document.body.classList.remove('no-scroll');
                 
-                // Rimuovi dal DOM dopo la transizione per non bloccare i clic
-                setTimeout(() => { preloader.style.display = 'none'; }, 800);
-            }, 1800);
+                // Rimuovi dal DOM dopo la transizione (0.6s)
+                setTimeout(() => { preloader.style.display = 'none'; }, 600);
+            }, 1400); // Entra in azione dopo esattamente 1.4 secondi
 
             // 2. OROLOGIO INVISIBILE: Controlla se l'ora è cambiata ogni 60 secondi
             setInterval(applicaTemaOrario, 60000);
