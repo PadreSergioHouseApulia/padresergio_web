@@ -191,7 +191,14 @@ header { background-color: var(--bianco-sfondo); padding: 20px 5%; display: flex
 /* SERVIZI */
 .griglia-servizi { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 .servizio-card { background: var(--card-sfondo); padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.servizio-icona { font-size: 40px; margin-bottom: 15px; }
+.icona-servizio {
+    width: 48px;        /* Regola la grandezza dell'icona qui */
+    height: 48px;
+    margin-bottom: 15px; /* Spazio tra l'icona e il titolo */
+    display: block;
+    margin-left: auto;   /* Questi due margin centrano l'icona */
+    margin-right: auto;
+}
 
 /* GALLERIA */
 .griglia-foto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
