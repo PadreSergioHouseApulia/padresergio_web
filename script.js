@@ -42,23 +42,27 @@ function applicaTemaOrario() {
 // Applica IL TEMA ALL'ISTANTE senza aspettare le foto
 applicaTemaOrario();
 
-window.onload = () => {
+// SGANCIAMO IL PRELOADER DAL PESO DELLE FOTO
+document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Rimuovi il Pre-loader e SBLOCCA LO SCROLL (Tempi bilanciati)
+    // 1. Rimuovi il Pre-loader e SBLOCCA LO SCROLL (Senza aspettare le immagini!)
     setTimeout(() => {
         const preloader = document.getElementById('preloader');
-        preloader.classList.add('preloader-hidden');
-        
-        // MAGIA: Sblocca lo scroll della pagina togliendo la classe al body
-        document.body.classList.remove('no-scroll');
-        
-        // Rimuovi dal DOM dopo la transizione (0.6s)
-        setTimeout(() => { preloader.style.display = 'none'; }, 600);
-    }, 1400); // Entra in azione dopo esattamente 1.4 secondi
+        if (preloader) {
+            preloader.classList.add('preloader-hidden');
+            
+            // MAGIA: Sblocca lo scroll della pagina togliendo la classe al body
+            document.body.classList.remove('no-scroll');
+            
+            // Rimuovi dal DOM dopo la transizione (0.6s)
+            setTimeout(() => { preloader.style.display = 'none'; }, 600);
+        }
+    }, 1400); // L'animazione partirà sempre e solo dopo 1.4 secondi esatti
 
     // 2. OROLOGIO INVISIBILE: Controlla se l'ora è cambiata ogni 60 secondi
     setInterval(applicaTemaOrario, 60000);
 
+    // 3. GESTIONE LINGUA
     const saved = localStorage.getItem('pref-lang');
     if (saved) {
         changeLang(saved);
@@ -70,7 +74,7 @@ window.onload = () => {
             changeLang('en');
         }
     }
-};
+});
 
 // --- EFFETTO PARALLASSE HERO ---
 window.addEventListener('scroll', () => {
