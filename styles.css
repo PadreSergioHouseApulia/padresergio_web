@@ -1,4 +1,4 @@
-/* =========================================
+﻿/* =========================================
    BLOCCO SCROLL INIZIALE
    ========================================= */
 body.no-scroll {
@@ -180,7 +180,7 @@ header { background-color: var(--bianco-sfondo); padding: 20px 5%; display: flex
 
 .hero h1 { font-size: 50px; margin-bottom: 15px; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); color: white !important; }
 .hero p { font-size: 20px; margin-bottom: 30px; font-weight: 300; max-width: 600px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); color: white !important; }
-.btn-prenota { background-color: white; color: var(--verde-primario) !important; padding: 15px 30px; font-size: 16px; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.btn-prenota { background-color: white; color: var(--verde-primario) !important; padding: 15px 34px; font-size: 16px; font-weight: bold; text-transform: uppercase; border-radius: 8px; transition: 0.3s; display: inline-block; box-shadow: 0 6px 20px rgba(0,0,0,0.25); letter-spacing: 0.5px; }
 .btn-prenota:hover { background-color: var(--verde-primario); color: white !important; transform: translateY(-3px); }
 
 /* SEZIONI */
@@ -190,7 +190,8 @@ header { background-color: var(--bianco-sfondo); padding: 20px 5%; display: flex
 
 /* SERVIZI */
 .griglia-servizi { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-.servizio-card { background: var(--card-sfondo); padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.servizio-card { background: var(--card-sfondo); padding: 30px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+.servizio-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
 .icona-servizio {
     width: 48px;        /* Regola la grandezza dell'icona qui */
     height: 48px;
@@ -225,7 +226,7 @@ header { background-color: var(--bianco-sfondo); padding: 20px 5%; display: flex
 
 /* DISTANZE STRATEGICHE (I DINTORNI) */
 .griglia-dintorni { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; padding: 0 5%; }
-.dintorni-card { background-color: var(--crema-sfondo); padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid var(--verde-chiaro); opacity: 0.8; }
+.dintorni-card { background-color: var(--crema-sfondo); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,0.06); border: 1px solid var(--verde-chiaro); transition: transform 0.2s; }
 .dintorni-icona { font-size: 35px; margin-bottom: 10px; }
 .dintorni-titolo { font-weight: bold; color: var(--testo-scuro); font-size: 16px; margin-bottom: 5px; }
 .dintorni-tempo { color: var(--verde-primario); font-size: 14px; font-weight: bold; }
@@ -251,7 +252,7 @@ footer p { margin: 10px 0; opacity: 0.8; font-size: 14px; color: white !importan
 .recensioni-container { max-width: 900px; margin: 50px auto; text-align: center; padding: 0 20px; position: relative; z-index: 5;}
 .recensioni-titolo { font-family: 'Georgia', serif; color: var(--verde-primario); font-size: 28px; margin-bottom: 25px; }
 .recensioni-scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: var(--verde-chiaro) transparent; }
-.recensione-card { flex: 0 0 100%; scroll-snap-align: center; background: var(--card-sfondo); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid var(--verde-primario); text-align: left; box-sizing: border-box; }
+.recensione-card { flex: 0 0 100%; scroll-snap-align: center; background: var(--card-sfondo); padding: 25px; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.07); border-top: 4px solid var(--verde-primario); text-align: left; box-sizing: border-box; }
 @media(min-width: 768px){ .recensione-card { flex: 0 0 calc(50% - 10px); } }
 .stelle { color: #f39c12; font-size: 18px; margin-bottom: 10px; letter-spacing: 2px;}
 .recensione-testo { font-style: italic; color: var(--testo-chiaro); font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
